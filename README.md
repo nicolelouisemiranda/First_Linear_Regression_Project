@@ -24,8 +24,12 @@ $$ a = a_j - \alpha \frac{\partial J(a)}{\partial a_j}  $$
 
 
 
+## Apêndice A: Derivada Parcial da Função Custo
 
-
+$$ \frac{\partial J(a)}{\partial a_j}=\frac{\partial }{\partial a_j}\left[ \frac{1}{m}\sum_{i=1}^{m}(h(x_i)-y)^2 \right] $$
+$$ \frac{\partial J(a)}{\partial a_j}=\frac{2}{m}(h(x_i)-y)\cdot \frac{\partial }{\partial a_j}\left[ \sum_{i=1}^{m}(h(x_i)-y) \right] $$
+$$ \frac{\partial J(a)}{\partial a_j}=\frac{2}{m}(h(x_i)-y)\cdot \frac{\partial }{\partial a_j}\left[ a_0+a_1x_1 +...+a_mx_m-y \right] $$
+$$ \frac{\partial J(a)}{\partial a_j}=\frac{2}{m}(h(x_i)-y)x_j $$
 
 ## Referências
 * Statlab | [Regressão Linear e Logística](https://thiagovidotto.com.br/statlab/)
