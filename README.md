@@ -31,4 +31,5 @@ $$ a = a_j - \alpha \frac{\partial J(a)}{\partial a_j}  $$
 * Statlab | [Regressão Linear e Logística](https://thiagovidotto.com.br/statlab/)
 * EBAC | [Regressão Linear: teoria e exemplos](https://ebaconline.com.br/blog/regressao-linear-seo)
 * IBM | [O que é Regressão Linear?](https://www.ibm.com/br-pt/think/topics/linear-regression)
+* Stanford | [CS229: Machine Learning - Linear Regression and Gradient Descent](https://www.youtube.com/watch?v=4b4MUYve_U8)
 
