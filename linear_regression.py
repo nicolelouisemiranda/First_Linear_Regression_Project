@@ -8,7 +8,7 @@ import seaborn as sns
 import plotly.express as px
 
 # import train data
-train_data = pd.read_csv('D:\Git Hub\Linear Regression\First_Linear_Regression_Project\test_energy_data.csv')
+train_data = pd.read_csv('test_energy_data.csv')
 
 # data type correction
 train_data['Building Type'] = train_data['Building Type'].astype('string')
