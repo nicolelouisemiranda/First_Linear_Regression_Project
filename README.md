@@ -72,15 +72,11 @@ $$ x'=\frac{x-x_{min}}{x_{max}-x_{min}} $$
 
 $$ y'=\frac{y-y_{min}}{y_{max}-y_{min}} $$
 
-Isolando $y$, temos:
-
-$$ y=y'(y_{max}-y_{min})+y_{min} $$
+Isolando $y$, temos: $ y=y'(y_{max}-y_{min})+y_{min} $
 
 A equação da reta retornada pelo modelo é: $y'=a_1'x'+a_0'$
 
-Substituindo no valor de $y’$: 
-
-$$ y=(a_1'x'+a_0')(y_{max}-y_{min})+y_{min} $$
+Substituindo no valor de $y’$: $ y=(a_1'x'+a_0')(y_{max}-y_{min})+y_{min} $
 
 Agora, substituindo o valor de $x'$ :
 
@@ -107,9 +103,10 @@ $$ y=\underbrace{ \left [ \frac{(y_{max}-y_{min})a_1'}{x_{max}-x_{min}}\right ]}
 
 
 Assim, encontramos as expressões para desnormalizar os valores dos coeficientes:
-$ a_1=\left ( \frac{y_{max}-y_{min}}{x_{max}-x_{min}} \right )a_1' $
 
-$ a_0=\left ( \frac{(y_{max}-y_{min})\cdot a_1'}{x_{max}-x_{min}} \right )x_{min}+a_0'(y_{max}-y_{min})+y_{min} $ 
+$$ a_1=\left ( \frac{y_{max}-y_{min}}{x_{max}-x_{min}} \right )a_1' $$
+
+$$ a_0=\left ( \frac{(y_{max}-y_{min})\cdot a_1'}{x_{max}-x_{min}} \right )x_{min}+a_0'(y_{max}-y_{min})+y_{min} $$ 
 
 
 ## Referências
