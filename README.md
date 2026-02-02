@@ -63,6 +63,13 @@ $$ \frac{\partial J(a)}{\partial a_j}=\frac{2}{m}(h(x_i)-y)\cdot \frac{\partial 
 $$ \frac{\partial J(a)}{\partial a_j}=\frac{2}{m}(h(x_i)-y)x_j $$
 
 ## Apêndice B: "Desnormalização"
+Partindo dos valor normalizados de $x’$ e $y’$ e isolando $y$, temos:
+
+$$ x'=\frac{x-x_{min}}{x_{max}-x_{min}} \;\;\;\; y'=\frac{y-y_{min}}{y_{max}-y_{min}} $$
+$$ y=y'(y_{max}-y_{min})+y_{min} $$
+
+Substituindo a equação da reta retornada pelo modelo no valor de $y’$: $y'=a_1'x'+a_0'$
+
 
 
 ## Referências
