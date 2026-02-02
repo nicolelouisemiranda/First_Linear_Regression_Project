@@ -58,14 +58,18 @@ train_data['Day of Week'] = train_data['Day of Week'].astype('string')
 ## Apêndice A: Derivada Parcial da Função Custo
 
 $$ \frac{\partial J(a)}{\partial a_j}=\frac{\partial }{\partial a_j}\left[ \frac{1}{m}\sum_{i=1}^{m}(h(x_i)-y)^2 \right] $$
+
 $$ \frac{\partial J(a)}{\partial a_j}=\frac{2}{m}(h(x_i)-y)\cdot \frac{\partial }{\partial a_j}\left[ \sum_{i=1}^{m}(h(x_i)-y) \right] $$
+
 $$ \frac{\partial J(a)}{\partial a_j}=\frac{2}{m}(h(x_i)-y)\cdot \frac{\partial }{\partial a_j}\left[ a_0+a_1x_1 +...+a_mx_m-y \right] $$
+
 $$ \frac{\partial J(a)}{\partial a_j}=\frac{2}{m}(h(x_i)-y)x_j $$
 
 ## Apêndice B: "Desnormalização"
 Partindo dos valor normalizados de $x’$ e $y’$:
 
 $$ x'=\frac{x-x_{min}}{x_{max}-x_{min}} $$ 
+
 $$ y'=\frac{y-y_{min}}{y_{max}-y_{min}} $$
 
 Isolando $y$, temos:
@@ -95,8 +99,9 @@ De forma que:
 $$ y=\underbrace{ \left [ \frac{(y_{max}-y_{min})a_1'}{x_{max}-x_{min}}\right ]}_{a_1} \cdot x+\underbrace{\left [ \left ( -\frac{(y_{max}-y_{min})a_1'}{x_{max}-x_{min}} \right )\cdot x_{min}+a_0' +y_{min} \right ]}_{a_0} $$
 
 Assim, encontramos as expressões para desnormalizar os valores dos coeficientes:
-* $ a_1=\left ( \frac{y_{max}-y_{min}}{x_{max}-x_{min}} \right )a_1' $
-* $a_0=\left ( \frac{(y_{max}-y_{min})\cdot a_1'}{x_{max}-x_{min}} \right )x_{min}+a_0'(y_{max}-y_{min})+y_{min}$ 
+$ a_1=\left ( \frac{y_{max}-y_{min}}{x_{max}-x_{min}} \right )a_1' $
+
+$a_0=\left ( \frac{(y_{max}-y_{min})\cdot a_1'}{x_{max}-x_{min}} \right )x_{min}+a_0'(y_{max}-y_{min})+y_{min}$ 
 
 
 ## Referências
