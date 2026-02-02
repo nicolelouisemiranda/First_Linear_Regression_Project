@@ -20,6 +20,21 @@ print('duplicated rows:', train_data.duplicated().sum())
 train_data['Building Type'] = train_data['Building Type'].astype('string')
 train_data['Day of Week'] = train_data['Day of Week'].astype('string')
 
+# is the data in a gaussian distribution?
+g = sns.displot(train_data['Square Footage'], kind='hist', kde=True)
+g.set_axis_labels("Área (m²)", "Contagens")
+g.set(title="Distribuição da Área")
+plt.tight_layout()
+plt.savefig('plot_area_distribution.png')
+plt.show()
+
+g = sns.displot(train_data['Energy Consumption'], kind='hist', kde=True)
+g.set_axis_labels("Consumo de Energia (kW)", "Contagens") 
+g.set(title="Distribuição do Consumo de Energia")
+plt.tight_layout()
+plt.savefig('plot_energy_consumption_distribution.png')
+plt.show()
+
 # ******************************************************************************
 #                             FUNCTIONS USED
 # ******************************************************************************
@@ -96,21 +111,6 @@ def denormalizer(x, y, coef_0, coef_1):
 # ******************************************************************************
 #                  APPLYING LINEAR REGRESSION ON THE DATA
 # ******************************************************************************
-# is the data in a gaussian distribution?
-g = sns.displot(train_data['Square Footage'], kind='hist', kde=True)
-g.set_axis_labels("Área (m²)", "Contagens")
-g.set(title="Distribuição da Área")
-plt.tight_layout()
-plt.savefig('plot_area_distribution.png')
-plt.show()
-
-g = sns.displot(train_data['Energy Consumption'], kind='hist', kde=True)
-g.set_axis_labels("Consumo de Energia (kW)", "Contagens") 
-g.set(title="Distribuição do Consumo de Energia")
-plt.tight_layout()
-plt.savefig('plot_energy_consumption_distribution.png')
-plt.show()
-
 # normalize the data
 x_n = normalize_data(train_data['Square Footage'])
 y_n = normalize_data(train_data['Energy Consumption'])
