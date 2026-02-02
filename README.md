@@ -74,9 +74,13 @@ $$ y'=\frac{y-y_{min}}{y_{max}-y_{min}} $$
 
 Isolando $y$, temos: $ y=y'(y_{max}-y_{min})+y_{min} $
 
-A equação da reta retornada pelo modelo é: $y'=a_1'x'+a_0'$
+A equação da reta retornada pelo modelo é: 
 
-Substituindo no valor de $y’$: $ y=(a_1'x'+a_0')(y_{max}-y_{min})+y_{min} $
+$$y'=a_1'x'+a_0'$$
+
+Substituindo no valor de $y’$: 
+
+$$ y=(a_1'x'+a_0')(y_{max}-y_{min})+y_{min} $$
 
 Agora, substituindo o valor de $x'$ :
 
