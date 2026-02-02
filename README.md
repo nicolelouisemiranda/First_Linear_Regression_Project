@@ -82,7 +82,7 @@ Substituindo no valor de $y’$:
 
 $$ y=(a_1'x'+a_0')(y_{max}-y_{min})+y_{min} $$
 
-Agora, substituindo o valor de $x'$:
+Agora, substituindo o valor de $x'$ :
 
 $$ y=\left [ a_1'\left ( \frac{x-x_{min}}{x_{max-x_{min}}} \right )+a_0' \right ](y_{max}-y_{min})+y_{min} $$
 
@@ -90,20 +90,26 @@ Organizando os valores conseguimos chegar na transformação inversa para os coe
 
 $$ y=\left [ \frac{a_1'x}{x_{max}-x_{min}}-\frac{a_1'x_{min}}{x_{max}-x_{min}}+a_0' \right ](y_{max}-y_{min})+y_{min} $$
 
+Multiplicando:
+
 $$ y=\left [ \frac{(y_{max}-y_{min})}{x_{max}-x_{min}}\cdot a_1'x-\frac{(y_{max}-y_{min})}{x_{max}-x_{min}}\cdot a_1'x_{min}+a_0' \right ]+y_{min}$$
+
 
 $$ y=\left [ \frac{(y_{max}-y_{min})a_1'}{x_{max}-x_{min}}\right ]\cdot x+\left [ -\frac{(y_{max}-y_{min})a_1'}{x_{max}-x_{min}}\right ]\cdot x_{min}+a_0' +y_{min}$$
 
+
 $$ y=\left [ \frac{(y_{max}-y_{min})a_1'}{x_{max}-x_{min}}\right ]\cdot x+\left [ \left ( -\frac{(y_{max}-y_{min})a_1'}{x_{max}-x_{min}} \right )\cdot x_{min}+a_0' +y_{min} \right ] $$
+
 
 De forma que:
 
 $$ y=\underbrace{ \left [ \frac{(y_{max}-y_{min})a_1'}{x_{max}-x_{min}}\right ]}_{a_1} \cdot x+\underbrace{\left [ \left ( -\frac{(y_{max}-y_{min})a_1'}{x_{max}-x_{min}} \right )\cdot x_{min}+a_0' +y_{min} \right ]}_{a_0} $$
 
+
 Assim, encontramos as expressões para desnormalizar os valores dos coeficientes:
 $ a_1=\left ( \frac{y_{max}-y_{min}}{x_{max}-x_{min}} \right )a_1' $
 
-$ a_0=\left ( \frac{(y_{max}-y_{min})\cdot a_1'}{x_{max}-x_{min}} \right )x_{min}+a_0'(y_{max}-y_{min})+y_{min}$ 
+$ a_0=\left ( \frac{(y_{max}-y_{min})\cdot a_1'}{x_{max}-x_{min}} \right )x_{min}+a_0'(y_{max}-y_{min})+y_{min} $ 
 
 
 ## Referências
