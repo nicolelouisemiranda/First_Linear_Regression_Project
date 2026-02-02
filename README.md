@@ -61,7 +61,7 @@ $$ x_{normalizado} = \frac{x-x_{min}}{x_{max}-x_{min}} $$
 
 Nas figuras abaixo, mostro o histograma das duas variáveis de interesse deste estudo. Comparando o eixo $x$ de ambos os gráficos, é possível ver a diferença de escala entre a área e o consumo de energia.
 
-<img src="plot_area_distribution.png" alt="Histograma Area" width="500" /> <img src="plot_energy_consumption_distribution.png" alt="Histograma Area" width="500" />
+<img src="plot_area_distribution.png" alt="Histograma Area" width="200" /> <img src="plot_energy_consumption_distribution.png" alt="Histograma Area" width="200" />
 
 ## Apêndice A: Derivada Parcial da Função Custo
 
