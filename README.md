@@ -27,7 +27,7 @@ $$ a = a_j - \frac{2 \alpha}{m}(h(x_i)-y)x_j $$
 ## Exemplo Prático com Dados
 Para entender o funcionamento da regressão linear simples, escrevi um código implementando o algoritmo da forma mais simples e detalhada possível. Além disso, comparei os resultados do meu código com a implementação do modelo através da biblioteca Scikit-learn, que é uma das ferramentas mais utilizadas em Python para tarefas de machine learning.
 
-Para treinar e testar os modelos, utilizei um dataset do Kaggle pensado para o estudo de regressão linear. Os dados do dataset podem ser usados para predizer o consumo de energia de estabelecimentos baseado em algumas características. 
+Para treinar e testar os modelos, utilizei um dataset do Kaggle pensado para o estudo de regressão linear. Os dados do dataset podem ser usados para predizer o consumo de energia de estabelecimentos baseado em algumas características. Neste estudo, irei focar na relação entre o consumo de energia e a área do estabelecimento.
 
 O dataset possui um dataframe de treino e um de teste. O dataframe de treino possui as seguintes informações:
 
@@ -53,7 +53,11 @@ train_data['Building Type'] = train_data['Building Type'].astype('string')
 train_data['Day of Week'] = train_data['Day of Week'].astype('string')
 ```
 
+Antes de aplicar a regressão linear aos dados, é necessário normalizá-los. Esse processo é essencial ao se utilizar modelos baseados em 
 
+A normalização transforma a escala dos dados de forma que todos os valores se encontrem em um intervalo de 0 a 1. Ela é uma boa escolha principalmente quando a distribuição dos dados não é Gaussiana. 
+
+$$ x_{normalizado} = \frac{x-x_{min}}{x_{max}-x_{min}} $$
 
 ## Apêndice A: Derivada Parcial da Função Custo
 
@@ -110,7 +114,7 @@ Assim, encontramos as expressões para desnormalizar os valores dos coeficientes
 
 $$ a_1=\left ( \frac{y_{max}-y_{min}}{x_{max}-x_{min}} \right )a_1' $$
 
-$$ a_0=\left ( \frac{(y_{max}-y_{min})\cdot a_1'}{x_{max}-x_{min}} \right )x_{min}+a_0'(y_{max}-y_{min})+y_{min} $$ 
+$$a_0=\left ( \frac{(y_{max}-y_{min})\cdot a_1'}{x_{max}-x_{min}} \right )x_{min}+a_0'(y_{max}-y_{min})+y_{min}$$ 
 
 
 ## Referências
