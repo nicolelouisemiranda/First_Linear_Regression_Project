@@ -98,18 +98,20 @@ def denormalizer(x, y, coef_0, coef_1):
 # ******************************************************************************
 # is the data in a gaussian distribution?
 g = sns.displot(train_data['Square Footage'], kind='hist', kde=True)
-g.set_axis_labels("Área (m²)")
+g.set_axis_labels("Área (m²)", "Contagens")
 g.set(title="Distribuição da Área")
+plt.tight_layout()
 plt.savefig('plot_area_distribution.png')
 plt.show()
 
 g = sns.displot(train_data['Energy Consumption'], kind='hist', kde=True)
-g.set_axis_labels("Consumo de Energia (kW)") 
+g.set_axis_labels("Consumo de Energia (kW)", "Contagens") 
 g.set(title="Distribuição do Consumo de Energia")
+plt.tight_layout()
 plt.savefig('plot_energy_consumption_distribution.png')
 plt.show()
 
-# normalize the data first
+# normalize the data
 x_n = normalize_data(train_data['Square Footage'])
 y_n = normalize_data(train_data['Energy Consumption'])
 
@@ -123,6 +125,7 @@ coef0_denormalized, coef1_denormalized = denormalizer(x=train_data['Square Foota
 g = sns.displot(res, kind='hist', kde=True)
 g.set_axis_labels("Resíduo", "Densidade")
 g.set(title="Distribuição dos Resíduos")
+plt.tight_layout()
 plt.show()
 
 # ******************************************************************************

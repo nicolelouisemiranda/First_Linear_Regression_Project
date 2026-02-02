@@ -53,11 +53,16 @@ train_data['Building Type'] = train_data['Building Type'].astype('string')
 train_data['Day of Week'] = train_data['Day of Week'].astype('string')
 ```
 
-Antes de aplicar a regressão linear aos dados, é necessário normalizá-los. Esse processo é essencial ao se utilizar modelos baseados em 
+Antes de aplicar a regressão linear aos dados, é necessário normalizá-los. Esse processo é essencial ao se utilizar modelos baseados em gradiente descendente como a Regressão Linear, pois aumenta a acurácia do modelo. A normalização transforma a escala dos dados de forma que todos os valores se encontrem em um intervalo de 0 a 1. Garantindo que o modelo utilizado não distorça a relação entre as variáveis, caso interprete que uma delas tem maior importância devido a uma escala maior, por exemplo.
 
-A normalização transforma a escala dos dados de forma que todos os valores se encontrem em um intervalo de 0 a 1. Ela é uma boa escolha principalmente quando a distribuição dos dados não é Gaussiana. 
+A normalização pode ser utilizada quando a distribuição dos dados não é Gaussiana e os dados usados possuem escalas distintas. A equação utilizada para normalizar os dados é a seguinte:
 
 $$ x_{normalizado} = \frac{x-x_{min}}{x_{max}-x_{min}} $$
+
+Nas figuras abaixo, mostro o histograma das duas variáveis de interesse deste estudo. Comparando o eixo $x$ de ambos os gráficos, é possível ver a diferença de escala entre a área e o consumo de energia.
+
+![Imagem 1](plot_area_distribution.png) ![Imagem 2](plot_energy_consumption_distribution.png)
+
 
 ## Apêndice A: Derivada Parcial da Função Custo
 
@@ -125,4 +130,6 @@ $$a_0=\left ( \frac{(y_{max}-y_{min})\cdot a_1'}{x_{max}-x_{min}} \right )x_{min
 * Kaggle | [Energy Consumption Dataset](https://www.kaggle.com/datasets/govindaramsriram/energy-consumption-dataset-linear-regression/data)
 * Medium | [Understanding the Cost Function in Linear Regression for Machine Learning Beginners](https://medium.com/@yennhi95zz/3-understanding-the-cost-function-in-linear-regression-for-machine-learning-beginners-ec9edeecbdde)
 * Stack Overflow | [Rescaling after feature scaling, linear regression](https://stackoverflow.com/questions/21168844/rescaling-after-feature-scaling-linear-regression?utm_source=chatgpt.com)
+* Geeks For Geeks | [When to normalize data in regression?](https://www.geeksforgeeks.org/machine-learning/when-to-normalize-data-in-regression/)
+* Medium | [A importância da normalização e padronização dos dados em Machine Learning](https://medium.com/ipnet-growth-partner/padronizacao-normalizacao-dados-machine-learning-f8f29246c12)
 
