@@ -10,6 +10,12 @@ import plotly.express as px
 # import train data
 train_data = pd.read_csv('test_energy_data.csv')
 
+# summary of columns, data types and null values
+print(train_data.info())
+
+# check for duplicated rows
+print('duplicated rows:', train_data.duplicated().sum())
+
 # data type correction
 train_data['Building Type'] = train_data['Building Type'].astype('string')
 train_data['Day of Week'] = train_data['Day of Week'].astype('string')
