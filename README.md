@@ -84,11 +84,11 @@ $$ y=(a_1'x'+a_0')(y_{max}-y_{min})+y_{min} $$
 
 Agora, substituindo o valor de $x'$ :
 
-$$ y=\left [ a_1'\left ( \frac{x-x_{min}}{x_{max-x_{min}}} \right )+a_0' \right ](y_{max}-y_{min})+y_{min} $$
+$$ y=\left ( a_1'\left ( \frac{x-x_{min}}{x_{max-x_{min}}} \right )+a_0' \right )(y_{max}-y_{min})+y_{min} $$
 
 Organizando os valores conseguimos chegar na transformação inversa para os coeficientes da reta:
 
-$$ y=\left [ \frac{a_1'x}{x_{max}-x_{min}}-\frac{a_1'x_{min}}{x_{max}-x_{min}}+a_0' \right ](y_{max}-y_{min})+y_{min} $$
+$$ y=\left ( \frac{a_1'x}{x_{max}-x_{min}}-\frac{a_1'x_{min}}{x_{max}-x_{min}}+a_0' \right )(y_{max}-y_{min})+y_{min} $$
 
 Multiplicando:
 
