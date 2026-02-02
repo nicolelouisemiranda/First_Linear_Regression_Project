@@ -29,6 +29,31 @@ Para entender o funcionamento da regressão linear simples, escrevi um código i
 
 Para treinar e testar os modelos, utilizei um dataset do Kaggle pensado para o estudo de regressão linear. Os dados do dataset podem ser usados para predizer o consumo de energia de estabelecimentos baseado em algumas características. 
 
+O dataset possui um dataframe de treino e um de teste. O dataframe de treino possui as seguintes informações:
+
+* Building type: tipo de estabelecimento (residencial, industrial ou outro);
+* Square footage: metragem do estabelecimento;
+* Number of occupants: número de ocupantes do estabelecimento;
+* Appliances used: número de aparelhos utilizados;
+* Average temperature: temperatura média do edifício em Celsius;
+* Day of week: dia da semana;
+* Energy consumption: consumo de energia em kW.
+
+Uma análise inicial do dataframe mostrou que não haviam linhas duplicadas ou valores nulos. Foi apenas necessário ajustar os tipos das colunas do dataframe.
+
+```
+# summary of columns, data types and null values
+print(train_data.info())
+
+# check for duplicated rows
+print('duplicated rows:', train_data.duplicated().sum())
+
+# data type correction
+train_data['Building Type'] = train_data['Building Type'].astype('string')
+train_data['Day of Week'] = train_data['Day of Week'].astype('string')
+```
+
+
 
 ## Apêndice A: Derivada Parcial da Função Custo
 
@@ -36,6 +61,9 @@ $$ \frac{\partial J(a)}{\partial a_j}=\frac{\partial }{\partial a_j}\left[ \frac
 $$ \frac{\partial J(a)}{\partial a_j}=\frac{2}{m}(h(x_i)-y)\cdot \frac{\partial }{\partial a_j}\left[ \sum_{i=1}^{m}(h(x_i)-y) \right] $$
 $$ \frac{\partial J(a)}{\partial a_j}=\frac{2}{m}(h(x_i)-y)\cdot \frac{\partial }{\partial a_j}\left[ a_0+a_1x_1 +...+a_mx_m-y \right] $$
 $$ \frac{\partial J(a)}{\partial a_j}=\frac{2}{m}(h(x_i)-y)x_j $$
+
+## Apêndice B: "Desnormalização"
+
 
 ## Referências
 * Statlab | [Regressão Linear e Logística](https://thiagovidotto.com.br/statlab/)
