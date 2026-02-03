@@ -1,5 +1,7 @@
 # Estudo sobre Regressão Linear
+_Neste projeto, exploro a regressão linear simples como forma de compreender e modelar a relação entre duas variáveis, focando na previsão do consumo de energia de estabelecimentos a partir da área construída. Apresento a base teórica do modelo, incluindo sua formulação matemática e aplicação pelo método de gradiente descendente. Para a parte prática, desenvolvi um código próprio em Python e comparei seus resultados com a biblioteca Scikit-learn._
 
+## Introdução
 A regressão linear é um modelo matemático que descreve a relação entre duas (ou mais) variáveis. A partir desse modelo, é possível prever o valor de uma variável a partir da outra, pois pressupõe-se que elas possuem uma relação linear entre si. Isso pode ser descrito de acordo com a seguinte equação matemática:
 
 $$ y(x) = a_0 + a_1 x_1 + a_2 x_2 + ... + a_n x_n $$
