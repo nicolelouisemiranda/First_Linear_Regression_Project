@@ -66,6 +66,87 @@ Nas figuras abaixo, mostro o histograma das duas variáveis de interesse deste e
     <img src="plot_energy_consumption_distribution.png" alt="Histograma Energia" width="45%">
 </div>
 
+Para normalizar os dados, defini a função ```normalize_data```:
+```
+def normalize_data(arr):
+  array_normalized = []
+  for item in arr:
+    valor_normalized = (item - arr.min()) / (arr.max() - arr.min())
+    array_normalized.append(valor_normalized)
+  return array_normalized
+```
+
+Além disso, defini a função linear (também chamada de hipótese) e a função custo ```f_cost```:
+
+```
+# linear function
+def hipotesis(coef_0, coef_1, x):
+  return coef_0 + coef_1 * x
+
+# cost function
+def f_cost(arr, coef_0, coef_1, y):
+  sum = 0
+  m = len(arr)
+  for i in range(len(arr)):
+    sum += (hipotesis(coef_0, coef_1, arr[i]) - y[i])**2
+  return (1/m) * sum
+```
+Para aplicar a regressão linear nos dados normalizados, defini a função ```linear_regression```, que itera sobre os valores da função custo ```f_cost``` para encontrar os valores dos coeficientes $a_0$ e $a_1$ que a minimizam. Além disso, a função retorna o resíduo:
+
+```
+def linear_regression(x_norm, y_norm, alpha=0.01, a_0=0, a_1=0):
+  contador = 1
+  J = 0
+  J_arr = []
+  a_0_arr = []
+  a_1_arr = []
+  residuo_arr = []
+
+  while contador >= 0.00001:
+    # calculate cost function and update contador
+    J = f_cost(x_norm, a_0, a_1, y_norm)
+    J_arr.append(J)
+
+    # calculate the gradient
+    soma_0 = 0
+    soma_1 = 0
+    for i in range(len(x_norm)):
+      soma_0 += (hipotesis(a_0, a_1, x_norm[i]) - y_norm[i])
+      soma_1 += (hipotesis(a_0, a_1, x_norm[i]) - y_norm[i]) * x_norm[i]
+    gradiente_0 = soma_0 / len(x_norm)
+    gradiente_1 = soma_1 / len(x_norm)
+
+    # calculate the new value for the coefficients
+    a_0 = a_0 - alpha * gradiente_0
+    a_1 = a_1 - alpha * gradiente_1
+
+    # add the coefficients in an array
+    a_0_arr.append(a_0)
+    a_1_arr.append(a_1)
+
+    # calculate new cost function and update
+    J_new = f_cost(x_norm, a_0, a_1, y_norm)
+    contador = J - J_new
+    J = J_new
+
+  # calculando o residuo
+  for i in range(len(x_norm)):
+    residuo = y_norm[i] - hipotesis(a_0, a_1, x_norm[i])
+    residuo_arr.append(residuo)
+
+  return a_0, a_1, a_0_arr, a_1_arr, residuo_arr, J_arr
+```
+Após essas etapas é importante "desnormalizar" os dados para poder vê-los na escala original. O cálculo para encontrar a equação de "desnormalização" está detalhado no Apêndice B.
+
+```
+# de-normalize the coeficients after the linear regression
+def denormalizer(x, y, coef_0, coef_1):
+  deltay = y.max() - y.min()
+  deltax = x.max() - x.min()
+  coef0_desn = (deltay/deltax) * coef_1 * x.min() + (coef_0 * deltay) + y.min()
+  coef1_desn = (deltay/deltax) * coef_1
+  return coef0_desn, coef0_desn
+```
 
 ## Apêndice A: Derivada Parcial da Função Custo
 
