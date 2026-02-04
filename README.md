@@ -57,7 +57,7 @@ train_data = train_data.drop(columns=['Building Type', 'Day of Week', 'Number of
 Para uma visualização inicial dos dados, fiz um gráfico da distribuição dos valores de consumo de energia e área. Podemos ver que a distribuição dos dados parece obedecer uma relação linear.
 
 <div style="text-align: center;">
-    <img src="plot_energy_vs_area.png" alt="Distribuicao dos Dados" width="70%">
+  <img src="plot_energy_vs_area.png" alt="Distribuicao dos Dados" width="70%">
 </div>
 
 Outra forma de garantir que os dados utilizados estão relacionados de forma linear é utilizando o coeficiente de correlação de Pearson. O coeficiente apresenta valores de $-1$ a $1$, onde $1$ significa uma correlação perfeita positiva e $-1$ significa uma correlação perfeita negativa. Se o coeficiente retornado é $0$ as variáveis não apresentam relação linear entre si.
@@ -164,7 +164,7 @@ def denormalizer(x, y, coef_0, coef_1):
 ```
 
 <div style="text-align: center;">
-    <img src="plot_linear_regression.png" alt="Regressao Linear" width="80%">
+  <img src="plot_linear_regression.png" alt="Regressao Linear" width="80%">
 </div>
 
 Na figura do canto superior esquerdo, vemos a evolução da função custo para os dois coeficientes calculados. Ao longo das iteração, a função custo vai sendo minimizada até chegar ao minímo global. No canto superior direito, vemos a distribuição da viariabilidade dos residuos para garantir a premissa de homoscedasticidade da regressão linear. Abaixo, no canto esquerdo, vemos o ajuste feito nos dados normalizados e à direita o ajude feito nos dados "desnormalizados" para facilitar a interpretação dos resultados.
@@ -172,7 +172,7 @@ Na figura do canto superior esquerdo, vemos a evolução da função custo para 
 Outra premissa que deve ser conferida para aplicar a regressão linear é a normalidade dos resíduos. Abaixo, mostro um histograma da distribuição dos resíduos retornados pelo modelo:
 
 <div style="text-align: center;">
-    <img src="plot_residuals_distribution.png" alt="Histograma Residuos" width="70%">
+  <img src="plot_residuals_distribution.png" alt="Histograma Residuos" width="60%">
 </div>
 
 ## Apêndice A: Derivada Parcial da Função Custo
