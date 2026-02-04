@@ -167,7 +167,9 @@ $$ x'=\frac{x-x_{min}}{x_{max}-x_{min}} $$
 
 $$ y'=\frac{y-y_{min}}{y_{max}-y_{min}} $$
 
-Isolando $y$, temos: $ y=y'(y_{max}-y_{min})+y_{min} $
+Isolando $y$, temos: 
+
+$$ y=y'(y_{max}-y_{min})+y_{min} $$
 
 A equação da reta retornada pelo modelo é: 
 
@@ -205,7 +207,7 @@ Assim, encontramos as expressões para desnormalizar os valores dos coeficientes
 
 $$ a_1=\left ( \frac{y_{max}-y_{min}}{x_{max}-x_{min}} \right )a_1' $$
 
-$$a_0=\left ( \frac{(y_{max}-y_{min})\cdot a_1'}{x_{max}-x_{min}} \right )x_{min}+a_0'(y_{max}-y_{min})+y_{min}$$ 
+$$ a_0= - \left ( \frac{(y_{max}-y_{min})\cdot a_1'}{x_{max}-x_{min}} \right )x_{min}+a_0'(y_{max}-y_{min})+y_{min} $$ 
 
 
 ## Referências

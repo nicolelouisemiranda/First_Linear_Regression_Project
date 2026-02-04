@@ -8,7 +8,7 @@ import seaborn as sns
 #import plotly.express as px
 
 # import train data
-train_data = pd.read_csv('test_energy_data.csv')
+train_data = pd.read_csv('train_energy_data.csv')
 
 # summary of columns, data types and null values
 print(train_data.info())
@@ -116,7 +116,7 @@ def linear_regression(x_norm, y_norm, alpha=0.01, a_0=0, a_1=0):
 def denormalizer(x, y, coef_0, coef_1):
   deltay = y.max() - y.min()
   deltax = x.max() - x.min()
-  coef0_desn = (deltay/deltax) * coef_1 * x.min() + (coef_0 * deltay) + y.min()
+  coef0_desn = -(deltay/deltax) * coef_1 * x.min() + (coef_0 * deltay) + y.min()
   coef1_desn = (deltay/deltax) * coef_1
   return coef0_desn, coef0_desn
 
