@@ -150,6 +150,15 @@ def denormalizer(x, y, coef_0, coef_1):
   return coef0_desn, coef0_desn
 ```
 
+<div style="text-align: center;">
+    <img src="plot_linear_regression.png" alt="Regressao Linear" width="80%">
+</div>
+
+
+<div style="text-align: center;">
+    <img src="plot_residuals_distribution.png" alt="Histograma Residuos" width="80%">
+</div>
+
 ## Apêndice A: Derivada Parcial da Função Custo
 
 $$ \frac{\partial J(a)}{\partial a_j}=\frac{\partial }{\partial a_j}\left[ \frac{1}{m}\sum_{i=1}^{m}(h(x_i)-y)^2 \right] $$
