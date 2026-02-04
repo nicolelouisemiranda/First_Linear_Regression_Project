@@ -44,7 +44,7 @@ plt.xlabel('Área (m²)')
 plt.ylabel('Consumo de Energia (kW)')
 plt.title('Consumo de Energia vs Área')
 plt.tight_layout()
-#plt.savefig('plot_energy_vs_area.png')
+plt.savefig('plot_energy_vs_area.png')
 plt.show()
 
 # ******************************************************************************
