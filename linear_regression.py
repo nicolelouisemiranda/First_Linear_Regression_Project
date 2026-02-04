@@ -1,5 +1,5 @@
 # ******************************************************************************
-#                EXAMPLE 1 - LINEAR REGRESSION BY HAND
+#                         LINEAR REGRESSION BY HAND
 # ******************************************************************************
 import numpy as np
 import pandas as pd
@@ -33,6 +33,18 @@ g.set_axis_labels("Consumo de Energia (kW)", "Contagens")
 g.set(title="Distribuição do Consumo de Energia")
 plt.tight_layout()
 plt.savefig('plot_energy_consumption_distribution.png')
+plt.show()
+
+# remove columns that will not be used
+train_data = train_data.drop(columns=['Building Type', 'Day of Week', 'Number of Occupants', 'Average Temperature', 'Appliances Used'])
+
+# visualize the data
+plt.scatter(train_data['Square Footage'], train_data['Energy Consumption'], s=5)
+plt.xlabel('Área (m²)')
+plt.ylabel('Consumo de Energia (kW)')
+plt.title('Consumo de Energia vs Área')
+plt.tight_layout()
+#plt.savefig('plot_energy_vs_area.png')
 plt.show()
 
 # ******************************************************************************
@@ -126,6 +138,7 @@ g = sns.displot(res, kind='hist', kde=True)
 g.set_axis_labels("Resíduo", "Densidade")
 g.set(title="Distribuição dos Resíduos")
 plt.tight_layout()
+plt.savefig('plot_residuals_distribution.png')
 plt.show()
 
 # ******************************************************************************
@@ -176,5 +189,5 @@ plt.ylabel('Consumo de Energia')
 plt.title('Ajuste nos Dados Reais')
 
 plt.tight_layout()
-#plt.savefig('plot_linear_regression.png')
+plt.savefig('plot_linear_regression.png')
 plt.show()

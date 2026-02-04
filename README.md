@@ -20,11 +20,11 @@ $$ J(a) = \frac{1}{m} \sum^m _{i=1} (h(x_i) - y_i )^2 $$
 
 Essa minimização é feita através do algoritmo de gradiente descendente, que funciona da seguinte forma: um primeiro valor de “a” é fornecido, a partir dele, um novo valor para “a” é calculado por meio da expressão:
 
-$$ a = a_j - \alpha \frac{\partial J(a)}{\partial a_j}  $$
+$$ a_j = a_j - \alpha \frac{\partial J(a)}{\partial a_j}  $$
 
 Substituindo o valor da derivada da função custo (calculada no apêndice A), chegamos a seguinte expressão para a determinação do valor de "a":
 
-$$ a = a_j - \frac{2 \alpha}{m}(h(x_i)-y)x_j $$
+$$ a_j = a_j - \frac{2 \alpha}{m}(h(x_i)-y)x_j $$
 
 ## Exemplo Prático com Dados
 Para entender o funcionamento da regressão linear simples, escrevi um código implementando o algoritmo da forma mais simples e detalhada possível. Além disso, comparei os resultados do meu código com a implementação do modelo através da biblioteca Scikit-learn, que é uma das ferramentas mais utilizadas em Python para tarefas de machine learning.
