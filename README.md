@@ -57,7 +57,7 @@ train_data = train_data.drop(columns=['Building Type', 'Day of Week', 'Number of
 Para uma visualização inicial dos dados, fiz um gráfico da distribuição dos valores de consumo de energia e área. Podemos ver que a distribuição dos dados parece obedecer uma relação linear.
 
 <div style="text-align: center;">
-    <img src="plot_energy_vs_area.png" alt="Distribuicao dos Dados" width="80%">
+    <img src="plot_energy_vs_area.png" alt="Distribuicao dos Dados" width="70%">
 </div>
 
 Outra forma de garantir que os dados utilizados estão relacionados de forma linear é utilizando o coeficiente de correlação de Pearson. O coeficiente apresenta valores de $-1$ a $1$, onde $1$ significa uma correlação perfeita positiva e $-1$ significa uma correlação perfeita negativa. Se o coeficiente retornado é $0$ as variáveis não apresentam relação linear entre si.
@@ -172,7 +172,7 @@ Na figura do canto superior esquerdo, vemos a evolução da função custo para 
 Outra premissa que deve ser conferida para aplicar a regressão linear é a normalidade dos resíduos. Abaixo, mostro um histograma da distribuição dos resíduos retornados pelo modelo:
 
 <div style="text-align: center;">
-    <img src="plot_residuals_distribution.png" alt="Histograma Residuos" width="80%">
+    <img src="plot_residuals_distribution.png" alt="Histograma Residuos" width="70%">
 </div>
 
 ## Apêndice A: Derivada Parcial da Função Custo
