@@ -5,6 +5,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
+import scipy.stats as stats
 #import plotly.express as px
 
 # import train data
@@ -16,9 +17,8 @@ print(train_data.info())
 # check for duplicated rows
 print('duplicated rows:', train_data.duplicated().sum())
 
-# data type correction
-train_data['Building Type'] = train_data['Building Type'].astype('string')
-train_data['Day of Week'] = train_data['Day of Week'].astype('string')
+# remove columns that will not be used
+train_data = train_data.drop(columns=['Building Type', 'Day of Week', 'Number of Occupants', 'Average Temperature', 'Appliances Used'])
 
 # is the data in a gaussian distribution?
 g = sns.displot(train_data['Square Footage'], kind='hist', kde=True)
@@ -35,9 +35,6 @@ plt.tight_layout()
 plt.savefig('plot_energy_consumption_distribution.png')
 plt.show()
 
-# remove columns that will not be used
-train_data = train_data.drop(columns=['Building Type', 'Day of Week', 'Number of Occupants', 'Average Temperature', 'Appliances Used'])
-
 # visualize the data
 plt.scatter(train_data['Square Footage'], train_data['Energy Consumption'], s=5)
 plt.xlabel('Área (m²)')
@@ -46,6 +43,10 @@ plt.title('Consumo de Energia vs Área')
 plt.tight_layout()
 plt.savefig('plot_energy_vs_area.png')
 plt.show()
+
+# is there a linear relationship between the variables?
+pearson_coef, _ = stats.pearsonr(train_data['Square Footage'], train_data['Energy Consumption'])
+print("Pearson Correlation Coefficient:", pearson_coef)
 
 # ******************************************************************************
 #                             FUNCTIONS USED

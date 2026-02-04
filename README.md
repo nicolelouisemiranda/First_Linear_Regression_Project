@@ -41,7 +41,7 @@ O dataset possui um dataframe de treino e um de teste. O dataframe de treino pos
 * Day of week: dia da semana;
 * Energy consumption: consumo de energia em kW.
 
-Uma análise inicial do dataframe mostrou que não haviam linhas duplicadas ou valores nulos. Foi apenas necessário ajustar os tipos das colunas do dataframe.
+Uma análise inicial do dataframe mostrou que não haviam linhas duplicadas ou valores nulos. Além disso, retirei as colunas que não serão relevantes para o estudo.
 
 ```
 # summary of columns, data types and null values
@@ -50,25 +50,38 @@ print(train_data.info())
 # check for duplicated rows
 print('duplicated rows:', train_data.duplicated().sum())
 
-# data type correction
-train_data['Building Type'] = train_data['Building Type'].astype('string')
-train_data['Day of Week'] = train_data['Day of Week'].astype('string')
+# remove columns that will not be used
+train_data = train_data.drop(columns=['Building Type', 'Day of Week', 'Number of Occupants', 'Average Temperature', 'Appliances Used'])
+
 ```
+Para uma visualização inicial dos dados, fiz um gráfico da distribuição dos valores de consumo de energia e área. Podemos ver que a distribuição dos dados parece obedecer uma relação linear.
+
+<div style="text-align: center;">
+    <img src="plot_energy_vs_area.png" alt="Distribuicao dos Dados" width="80%">
+</div>
+
+Outra forma de garantir que os dados utilizados estão relacionados de forma linear é utilizando o coeficiente de correlação de Pearson. O coeficiente apresenta valores de $-1$ a $1$, onde $1$ significa uma correlação perfeita positiva e $-1$ significa uma correlação perfeita negativa. Se o coeficiente retornado é $0$ as variáveis não apresentam relação linear entre si.
+
+O coeficiente de Pearson é calculado a partir da seguinte equação:
+
+$$  \rho =\frac{\sum_{i=1}^{n}(x_i-\overline{x})(y_i-\overline{y})}{\sqrt{\sum_{i=1}^{n}(x_i-\overline{x})^2}\cdot\sqrt{\sum_{i=1}^{n}(y_i-\overline{y})^2}} $$
+
+Onde $x_i$ e $y_i$ são os valores de ambas as variáveis e $\overline{x}$ e $\overline{y}$ são as médias das variáveis. O coeficiente foi calculado utilizando a biblioteca SciPy:
+
+```
+pearson_coef, _ = stats.pearsonr(train_data['Square Footage'], train_data['Energy Consumption'])
+```
+
+O valor retornado foi de $0.77$, o que indica uma alta correlação positiva.
+
 
 Antes de aplicar a regressão linear aos dados, é necessário normalizá-los. Esse processo é essencial ao se utilizar modelos baseados em gradiente descendente como a Regressão Linear, pois aumenta a acurácia do modelo. A normalização transforma a escala dos dados de forma que todos os valores se encontrem em um intervalo de 0 a 1. Garantindo que o modelo utilizado não distorça a relação entre as variáveis, caso interprete que uma delas tem maior importância devido a uma escala maior, por exemplo.
 
-A normalização pode ser utilizada quando a distribuição dos dados não é Gaussiana e os dados usados possuem escalas distintas. A equação utilizada para normalizar os dados é a seguinte:
+A equação utilizada para normalizar os dados é a seguinte:
 
 $$ x_{normalizado} = \frac{x-x_{min}}{x_{max}-x_{min}} $$
 
-Nas figuras abaixo, mostro o histograma das duas variáveis de interesse deste estudo. Comparando o eixo $x$ de ambos os gráficos, é possível ver a diferença de escala entre a área e o consumo de energia.
-
-<div style="text-align: center;">
-    <img src="plot_area_distribution.png" alt="Histograma Area" width="45%">
-    <img src="plot_energy_consumption_distribution.png" alt="Histograma Energia" width="45%">
-</div>
-
-Para normalizar os dados, defini a função ```normalize_data```:
+Assim, defini a função ```normalize_data```:
 ```
 def normalize_data(arr):
   array_normalized = []
@@ -154,6 +167,9 @@ def denormalizer(x, y, coef_0, coef_1):
     <img src="plot_linear_regression.png" alt="Regressao Linear" width="80%">
 </div>
 
+Na figura do canto superior esquerdo, vemos a evolução da função custo para os dois coeficientes calculados. Ao longo das iteração, a função custo vai sendo minimizada até chegar ao minímo global. No canto superior direito, vemos a distribuição da viariabilidade dos residuos para garantir a premissa de homoscedasticidade da regressão linear. Abaixo, no canto esquerdo, vemos o ajuste feito nos dados normalizados e à direita o ajude feito nos dados "desnormalizados" para facilitar a interpretação dos resultados.
+
+Outra premissa que deve ser conferida para aplicar a regressão linear é a normalidade dos resíduos. Abaixo, mostro um histograma da distribuição dos resíduos retornados pelo modelo:
 
 <div style="text-align: center;">
     <img src="plot_residuals_distribution.png" alt="Histograma Residuos" width="80%">
@@ -220,6 +236,7 @@ $$ a_0= - \left ( \frac{(y_{max}-y_{min})\cdot a_1'}{x_{max}-x_{min}} \right )x_
 
 
 ## Referências
+
 * Statlab | [Regressão Linear e Logística](https://thiagovidotto.com.br/statlab/)
 * EBAC | [Regressão Linear: teoria e exemplos](https://ebaconline.com.br/blog/regressao-linear-seo)
 * IBM | [O que é Regressão Linear?](https://www.ibm.com/br-pt/think/topics/linear-regression)
@@ -229,4 +246,6 @@ $$ a_0= - \left ( \frac{(y_{max}-y_{min})\cdot a_1'}{x_{max}-x_{min}} \right )x_
 * Stack Overflow | [Rescaling after feature scaling, linear regression](https://stackoverflow.com/questions/21168844/rescaling-after-feature-scaling-linear-regression?utm_source=chatgpt.com)
 * Geeks For Geeks | [When to normalize data in regression?](https://www.geeksforgeeks.org/machine-learning/when-to-normalize-data-in-regression/)
 * Medium | [A importância da normalização e padronização dos dados em Machine Learning](https://medium.com/ipnet-growth-partner/padronizacao-normalizacao-dados-machine-learning-f8f29246c12)
-
+* DataCamp | [Normalização vs. Padronização: Como saber a diferença](https://www.datacamp.com/pt/tutorial/normalization-vs-standardization)
+* Wikipedia | [Coeficiente de correlação de Pearson](https://pt.wikipedia.org/wiki/Coeficiente_de_correla%C3%A7%C3%A3o_de_Pearson)
+* DataCamp | [Python Details on Correlation Tutorial](https://www.datacamp.com/tutorial/tutorial-datails-on-correlation)
