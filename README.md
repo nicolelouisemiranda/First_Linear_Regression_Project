@@ -54,6 +54,15 @@ print('duplicated rows:', train_data.duplicated().sum())
 train_data = train_data.drop(columns=['Building Type', 'Day of Week', 'Number of Occupants', 'Average Temperature', 'Appliances Used'])
 
 ```
+
+Para aplicar a regressão linear e obter resultados confiáveis, algumas premissas devem ser respeitadas. Ao longo deste estudo irei verificar a validade de todas:
+
+1. Linearidade: as duas (ou mais) variáveis estudadas devem apresentar uma relação linear entre elas.
+2. Normalidade dos resíduos: os resíduos devem ter uma distribuição normal.
+3. Observações independentes: não deve haver correlação entre os resíduos do modelo.
+4. Homoscedasticidade: os resíduos devem apresentar variabilidade constante.
+
+### Linearidade
 Para uma visualização inicial dos dados, fiz um gráfico da distribuição dos valores de consumo de energia e área. Podemos ver que a distribuição dos dados parece obedecer uma relação linear.
 
 <div style="text-align: center;">
@@ -72,8 +81,9 @@ Onde $x_i$ e $y_i$ são os valores de ambas as variáveis e $\overline{x}$ e $\o
 pearson_coef, _ = stats.pearsonr(train_data['Square Footage'], train_data['Energy Consumption'])
 ```
 
-O valor retornado foi de $0.77$, o que indica uma alta correlação positiva.
+O valor retornado foi de $0.77$, o que indica uma alta correlação positiva, ou seja, existe relação linear entre as variáveis estudadas.
 
+### Normalização
 
 Antes de aplicar a regressão linear aos dados, é necessário normalizá-los. Esse processo é essencial ao se utilizar modelos baseados em gradiente descendente como a Regressão Linear, pois aumenta a acurácia do modelo. A normalização transforma a escala dos dados de forma que todos os valores se encontrem em um intervalo de 0 a 1. Garantindo que o modelo utilizado não distorça a relação entre as variáveis, caso interprete que uma delas tem maior importância devido a uma escala maior, por exemplo.
 
@@ -91,7 +101,9 @@ def normalize_data(arr):
   return array_normalized
 ```
 
-Além disso, defini a função linear (também chamada de hipótese) e a função custo ```f_cost```:
+### Definição de Funções e Aplicação da Regressão Linear
+
+Antes de definir o algoritmo de regressão linear, comecei definindo a função linear (também chamada de hipótese) e a função custo ```f_cost```:
 
 ```
 # linear function
@@ -163,11 +175,15 @@ def denormalizer(x, y, coef_0, coef_1):
   return coef0_desn, coef0_desn
 ```
 
+### Evolução da Função Custo e Homoscedasticidade
+
 <div style="text-align: center;">
   <img src="plot_linear_regression.png" alt="Regressao Linear" width="80%">
 </div>
 
 Na figura do canto superior esquerdo, vemos a evolução da função custo para os dois coeficientes calculados. Ao longo das iteração, a função custo vai sendo minimizada até chegar ao minímo global. No canto superior direito, vemos a distribuição da viariabilidade dos residuos para garantir a premissa de homoscedasticidade da regressão linear. Abaixo, no canto esquerdo, vemos o ajuste feito nos dados normalizados e à direita o ajude feito nos dados "desnormalizados" para facilitar a interpretação dos resultados.
+
+### Normalidade dos Resíduos
 
 Outra premissa que deve ser conferida para aplicar a regressão linear é a normalidade dos resíduos. Abaixo, mostro um histograma da distribuição dos resíduos retornados pelo modelo:
 
