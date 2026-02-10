@@ -142,6 +142,9 @@ plt.tight_layout()
 plt.savefig('plot_residuals_distribution.png')
 plt.show()
 
+shapiro = stats.shapiro(res)
+print("Shapiro-Wilk Test Statistic:", shapiro.statistic)
+
 # ******************************************************************************
 #                                PLOTS
 # ******************************************************************************

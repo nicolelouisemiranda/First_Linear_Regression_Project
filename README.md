@@ -197,6 +197,13 @@ $$ W = \frac{\left ( \sum ^n _{i=1} a_i x_{(i)} \right ) ^2}{\sum ^n _{i=1} (x_i
 
 Onde $\bar{x}$ é a média da amostra e $x_{(i)}$ são os valores da amostra ordenados de forma crescente. Nesse teste, a hipótese nula é de que os dados pertencem a uma distribuição normal e a hipótese alternativa é de que os dados não pertencem a uma distribuição normal.
 
+Para realizar o teste, utilizei a função ```shapiro()``` da biblioteca SciPy:
+
+```
+shapiro = stats.shapiro(res)
+```
+
+O valor retornado foi de $0.99$, confirmando que a distribuição dos resíduos segue uma curva normal.
 
 ## Apêndice A: Derivada Parcial da Função Custo
 
