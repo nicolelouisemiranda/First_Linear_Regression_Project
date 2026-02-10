@@ -178,7 +178,7 @@ def denormalizer(x, y, coef_0, coef_1):
 ### Evolução da Função Custo e Homoscedasticidade
 
 <div style="text-align: center;">
-  <img src="plot_linear_regression.png" alt="Regressao Linear" width="80%">
+  <img src="plot_linear_regression.png" alt="Regressao Linear" width="60%">
 </div>
 
 Na figura do canto superior esquerdo, vemos a evolução da função custo para os dois coeficientes calculados. Ao longo das iteração, a função custo vai sendo minimizada até chegar ao minímo global. No canto superior direito, vemos a distribuição da viariabilidade dos residuos para garantir a premissa de homoscedasticidade da regressão linear. Abaixo, no canto esquerdo, vemos o ajuste feito nos dados normalizados e à direita o ajude feito nos dados "desnormalizados" para facilitar a interpretação dos resultados.
@@ -188,8 +188,15 @@ Na figura do canto superior esquerdo, vemos a evolução da função custo para 
 Outra premissa que deve ser conferida para aplicar a regressão linear é a normalidade dos resíduos. Abaixo, mostro um histograma da distribuição dos resíduos retornados pelo modelo:
 
 <div style="text-align: center;">
-  <img src="plot_residuals_distribution.png" alt="Histograma Residuos" width="60%">
+  <img src="plot_residuals_distribution.png" alt="Histograma Residuos" width="50%">
 </div>
+
+Apenas pela análise visual do histograma, é possível ver que os resíduos apresentam uma distribuição normal. Entretanto, para maior completude desse estudo, realizei o teste de Shapiro-Wilk. Esse teste calcula se uma amostra pertence a uma população com distribuição normal. O valor da estatística é calculado de acordo com a equação:
+
+$$ W = \frac{\left ( \sum ^n _{i=1} a_i x_{(i)} \right ) ^2}{\sum ^n _{i=1} (x_i - \bar{x})^2} $$
+
+Onde $\bar{x}$ é a média da amostra e $x_{(i)}$ são os valores da amostra ordenados de forma crescente. Nesse teste, a hipótese nula é de que os dados pertencem a uma distribuição normal e a hipótese alternativa é de que os dados não pertencem a uma distribuição normal.
+
 
 ## Apêndice A: Derivada Parcial da Função Custo
 
