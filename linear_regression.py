@@ -20,6 +20,9 @@ print('duplicated rows:', train_data.duplicated().sum())
 # remove columns that will not be used
 train_data = train_data.drop(columns=['Building Type', 'Day of Week', 'Number of Occupants', 'Average Temperature', 'Appliances Used'])
 
+# checking how many data points we have
+print('number of data points:', len(train_data))
+
 # is the data in a gaussian distribution?
 g = sns.displot(train_data['Square Footage'], kind='hist', kde=True)
 g.set_axis_labels("Área (m²)", "Contagens")
@@ -143,7 +146,25 @@ plt.savefig('plot_residuals_distribution.png')
 plt.show()
 
 shapiro = stats.shapiro(res)
-print("Shapiro-Wilk Test Statistic:", shapiro.statistic)
+print("Shapiro-Wilk Test Statistic:", shapiro.statistic, shapiro.pvalue)
+# Shapiro-Wilk Test Statistic: 0.99 p = 0.0008
+# the p-value is less than 0.05, so we reject the null hypothesis that the residuals are normally distributed
+
+anderson = stats.anderson(res, dist='norm')
+print("Anderson-Darling Test Statistic:", anderson.statistic, anderson.critical_values, anderson.significance_level)
+# Anderson-Darling Test Statistic: 0.84 [0.574 0.653 0.784 0.914 1.088] [15.  10.   5.   2.5  1. ]
+# the test statistic is less than the critical value at the 5% significance level, so we fail to reject the null hypothesis that the residuals are normally distributed
+
+kstest = stats.kstest(res, 'norm')
+print("Kolmogorov-Smirnov Test Statistic:", kstest.statistic, kstest.pvalue)
+# Kolmogorov-Smirnov Test Statistic: 0.39 1.2763517867601345e-141
+# the p-value is less than 0.05, so we reject the null hypothesis that the residuals are normally distributed
+
+stats.probplot(res, dist="norm", plot=plt)
+plt.title('QQ Plot dos Resíduos')
+plt.tight_layout()
+plt.savefig('plot_qq_residuals_probplot.png')
+plt.show()
 
 # ******************************************************************************
 #                                PLOTS
