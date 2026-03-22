@@ -187,23 +187,22 @@ Na figura do canto superior esquerdo, vemos a evolução da função custo para 
 
 Outra premissa que deve ser conferida para aplicar a regressão linear é a normalidade dos resíduos. Abaixo, mostro um histograma da distribuição dos resíduos retornados pelo modelo:
 
-<div style="text-align: center;">
-  <img src="plot_residuals_distribution.png" alt="Histograma Residuos" width="50%">
-</div>
+<table align="center">
+  <tr>
+    <td>
+      <img src="plot_residuals_distribution.png" alt="Histograma Residuos" width="100%">
+    </td>
+    <td>
+      <img src="plot_qq_residuals_probplot.png" alt="QQ Plot Residuos" width="100%">
+    </td>
+  </tr>
+</table>
 
-Apenas pela análise visual do histograma, é possível ver que os resíduos apresentam uma distribuição normal. Entretanto, para maior completude desse estudo, realizei o teste de Shapiro-Wilk. Esse teste calcula se uma amostra pertence a uma população com distribuição normal. O valor da estatística é calculado de acordo com a equação:
+Pela análise visual do histograma e do QQ plot, é possível ver que os resíduos apresentam uma distribuição aproximadamente normal, com leves desvios nas caudas da gaussiana. Portanto, a hipótese de normalidade dos resíduos parece razoavelmente satisfeita.
 
-$$ W = \frac{\left ( \sum ^n _{i=1} a_i x_{(i)} \right ) ^2}{\sum ^n _{i=1} (x_i - \bar{x})^2} $$
 
-Onde $\bar{x}$ é a média da amostra e $x_{(i)}$ são os valores da amostra ordenados de forma crescente. Nesse teste, a hipótese nula é de que os dados pertencem a uma distribuição normal e a hipótese alternativa é de que os dados não pertencem a uma distribuição normal.
 
-Para realizar o teste, utilizei a função ```shapiro()``` da biblioteca SciPy:
 
-```
-shapiro = stats.shapiro(res)
-```
-
-<!-- O valor retornado foi de $0.99$, confirmando que a distribuição dos resíduos segue uma curva normal. -->
 
 ## Apêndice A: Derivada Parcial da Função Custo
 
