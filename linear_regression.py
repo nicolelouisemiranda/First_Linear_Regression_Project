@@ -6,6 +6,8 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 import scipy.stats as stats
+from sklearn.linear_model import LinearRegression
+from sklearn.preprocessing import MinMaxScaler
 #import plotly.express as px
 
 # import train data
@@ -209,3 +211,25 @@ plt.title('Ajuste nos Dados Reais')
 plt.tight_layout()
 plt.savefig('plot_linear_regression.png')
 plt.show()
+
+# ******************************************************************************
+#                    COMPARISON WITH SKLEARN LINEAR REGRESSION
+# ******************************************************************************
+X_train = train_data['Square Footage']
+y_train = train_data['Energy Consumption']
+
+# normalize data
+scaler = MinMaxScaler()
+
+X_train_scaled = scaler.fit_transform(X_train.values.reshape(-1, 1))
+y_train_scaled = scaler.fit_transform(y_train.values.reshape(-1, 1))
+
+model = LinearRegression()
+model.fit(X_train_scaled, y_train_scaled)
+
+coef0_sklearn = model.intercept_[0]
+coef1_sklearn = model.coef_[0][0]
+
+print('Coeficiente a_0 sklearn:', coef0_sklearn)
+print('Coeficiente a_1 sklearn:', coef1_sklearn)
+

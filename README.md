@@ -95,7 +95,7 @@ Assim, defini a função ```normalize_data```:
 ```
 def normalize_data(arr):
   return (arr - arr.min()) / (arr.max() - arr.min())
-  
+
 ```
 
 ### Definição de Funções e Aplicação da Regressão Linear
@@ -209,6 +209,13 @@ Outra premissa que deve ser conferida para aplicar a regressão linear é a norm
 </table>
 
 Pela análise visual do histograma e do QQ plot, é possível ver que os resíduos apresentam uma distribuição aproximadamente normal, com leves desvios nas caudas da gaussiana. Portanto, a hipótese de normalidade dos resíduos parece razoavelmente satisfeita.
+
+### Desempenho nos Dados de Teste
+
+
+
+
+### Comparação com Scikit-learn
 
 
 
