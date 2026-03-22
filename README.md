@@ -58,7 +58,7 @@ train_data = train_data.drop(columns=['Building Type', 'Day of Week', 'Number of
 Para aplicar a regressão linear e obter resultados confiáveis, algumas premissas devem ser respeitadas. Ao longo deste estudo irei verificar a validade de todas:
 
 1. Linearidade: as duas (ou mais) variáveis estudadas devem apresentar uma relação linear entre elas.
-2. Normalidade dos resíduos: os resíduos devem ter uma distribuição normal.
+2. Normalidade dos resíduos: os resíduos devem ter uma distribuição aproximadamente normal.
 3. Observações independentes: não deve haver correlação entre os resíduos do modelo.
 4. Homoscedasticidade: os resíduos devem apresentar variabilidade constante.
 
@@ -69,7 +69,7 @@ Para uma visualização inicial dos dados, fiz um gráfico da distribuição dos
   <img src="plot_energy_vs_area.png" alt="Distribuicao dos Dados" width="70%">
 </div>
 
-Outra forma de garantir que os dados utilizados estão relacionados de forma linear é utilizando o coeficiente de correlação de Pearson. O coeficiente apresenta valores de $-1$ a $1$, onde $1$ significa uma correlação perfeita positiva e $-1$ significa uma correlação perfeita negativa. Se o coeficiente retornado é $0$ as variáveis não apresentam relação linear entre si.
+Outra forma de garantir que os dados utilizados estão relacionados de forma linear é utilizando o coeficiente de correlação de Pearson. O coeficiente apresenta valores de $-1$ a $1$, onde $1$ significa uma correlação perfeita positiva e $-1$ significa uma correlação perfeita negativa. Se o coeficiente retornado é próximo de $0$ as variáveis não apresentam relação linear entre si.
 
 O coeficiente de Pearson é calculado a partir da seguinte equação:
 
@@ -94,11 +94,8 @@ $$ x_{normalizado} = \frac{x-x_{min}}{x_{max}-x_{min}} $$
 Assim, defini a função ```normalize_data```:
 ```
 def normalize_data(arr):
-  array_normalized = []
-  for item in arr:
-    valor_normalized = (item - arr.min()) / (arr.max() - arr.min())
-    array_normalized.append(valor_normalized)
-  return array_normalized
+  return (arr - arr.min()) / (arr.max() - arr.min())
+  
 ```
 
 ### Definição de Funções e Aplicação da Regressão Linear
@@ -181,7 +178,20 @@ def denormalizer(x, y, coef_0, coef_1):
   <img src="plot_linear_regression.png" alt="Regressao Linear" width="60%">
 </div>
 
-Na figura do canto superior esquerdo, vemos a evolução da função custo para os dois coeficientes calculados. Ao longo das iteração, a função custo vai sendo minimizada até chegar ao minímo global. No canto superior direito, vemos a distribuição da viariabilidade dos residuos para garantir a premissa de homoscedasticidade da regressão linear. Abaixo, no canto esquerdo, vemos o ajuste feito nos dados normalizados e à direita o ajude feito nos dados "desnormalizados" para facilitar a interpretação dos resultados.
+Na figura do canto superior esquerdo, vemos a evolução da função custo para os dois coeficientes calculados. Ao longo das iteração, a função custo vai sendo minimizada até chegar ao minímo global. No canto superior direito, vemos a distribuição da variabilidade dos residuos para garantir a premissa de homoscedasticidade da regressão linear. Abaixo, no canto esquerdo, vemos o ajuste feito nos dados normalizados e à direita o ajude feito nos dados "desnormalizados" para facilitar a interpretação dos resultados.
+
+Os coeficientes retornados pelo algoritmo foram:
+
+$$ y(x) = a_0 + a_1 x_1 $$
+
+
+Coeficiente | Valor Normalizado | Valor Desnormalizado |
+|:--------: |:-----------------:|:--------------------:|
+| $$a_0$$   |0.239              |2813.901              |
+| $$a_1$$   |0.575              |0.056                 |
+
+
+
 
 ### Normalidade dos Resíduos
 

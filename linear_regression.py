@@ -56,11 +56,12 @@ print("Pearson Correlation Coefficient:", pearson_coef)
 # ******************************************************************************
 # normalize data
 def normalize_data(arr):
-  array_normalized = []
-  for item in arr:
-    valor_normalized = (item - arr.min()) / (arr.max() - arr.min())
-    array_normalized.append(valor_normalized)
-  return array_normalized
+  return (arr - arr.min()) / (arr.max() - arr.min())
+  #array_normalized = []
+  #for item in arr:
+  #  valor_normalized = (item - arr.min()) / (arr.max() - arr.min())
+  #  array_normalized.append(valor_normalized)
+  #return array_normalized
 
 # linear function
 def hipotesis(coef_0, coef_1, x):
@@ -122,7 +123,7 @@ def denormalizer(x, y, coef_0, coef_1):
   deltax = x.max() - x.min()
   coef0_desn = -(deltay/deltax) * coef_1 * x.min() + (coef_0 * deltay) + y.min()
   coef1_desn = (deltay/deltax) * coef_1
-  return coef0_desn, coef0_desn
+  return coef0_desn, coef1_desn
 
 # ******************************************************************************
 #                  APPLYING LINEAR REGRESSION ON THE DATA
@@ -135,7 +136,12 @@ y_n = normalize_data(train_data['Energy Consumption'])
 coef0, coef1, coef0_arr, coef1_arr, res, j = linear_regression(x_norm=x_n, y_norm=y_n, alpha=0.01, a_0=1, a_1=1)
 
 # de-normalize the coefficients
-coef0_denormalized, coef1_denormalized = denormalizer(x=train_data['Square Footage'],y=train_data['Energy Consumption'],coef_0 = coef0,coef_1=coef1)
+coef0_denormalized, coef1_denormalized = denormalizer(x=train_data['Square Footage'], y=train_data['Energy Consumption'], coef_0 = coef0, coef_1=coef1)
+
+print('Coeficiente a_0:', coef0)
+print('Coeficiente a_1:', coef1)
+print('Coeficiente a_0 desnormalizado:', coef0_denormalized)
+print('Coeficiente a_1 desnormalizado:', coef1_denormalized)
 
 # check residuals for normality
 g = sns.displot(res, kind='hist', kde=True)
@@ -145,23 +151,10 @@ plt.tight_layout()
 plt.savefig('plot_residuals_distribution.png')
 plt.show()
 
-shapiro = stats.shapiro(res)
-print("Shapiro-Wilk Test Statistic:", shapiro.statistic, shapiro.pvalue)
-# Shapiro-Wilk Test Statistic: 0.99 p = 0.0008
-# the p-value is less than 0.05, so we reject the null hypothesis that the residuals are normally distributed
-
-anderson = stats.anderson(res, dist='norm')
-print("Anderson-Darling Test Statistic:", anderson.statistic, anderson.critical_values, anderson.significance_level)
-# Anderson-Darling Test Statistic: 0.84 [0.574 0.653 0.784 0.914 1.088] [15.  10.   5.   2.5  1. ]
-# the test statistic is less than the critical value at the 5% significance level, so we fail to reject the null hypothesis that the residuals are normally distributed
-
-kstest = stats.kstest(res, 'norm')
-print("Kolmogorov-Smirnov Test Statistic:", kstest.statistic, kstest.pvalue)
-# Kolmogorov-Smirnov Test Statistic: 0.39 1.2763517867601345e-141
-# the p-value is less than 0.05, so we reject the null hypothesis that the residuals are normally distributed
-
 stats.probplot(res, dist="norm", plot=plt)
 plt.title('QQ Plot dos Resíduos')
+plt.xlabel('Quantis Teóricos')
+plt.ylabel('Quantis Observados')
 plt.tight_layout()
 plt.savefig('plot_qq_residuals_probplot.png')
 plt.show()
@@ -203,7 +196,7 @@ plt.title('Ajuste nos Dados Normalizados')
 
 # linear function with de-normalized coefficients
 y_desn = []
-for i in x_n:
+for i in train_data['Square Footage']:
   y_desn.append(hipotesis(coef0_denormalized, coef1_denormalized, i))
 
 plt.subplot(2,2,4)
