@@ -8,12 +8,16 @@ import seaborn as sns
 import scipy.stats as stats
 from sklearn.linear_model import LinearRegression
 from sklearn.preprocessing import MinMaxScaler
+from sklearn.metrics import mean_squared_error, r2_score
+from sklearn.metrics import mean_absolute_error
+from sklearn.metrics import root_mean_squared_error
 #import plotly.express as px
 
 # import train data
 train_data = pd.read_csv('train_energy_data.csv')
 
 # summary of columns, data types and null values
+print('****** TRAIN DATA INFO ******')
 print(train_data.info())
 
 # check for duplicated rows
@@ -24,6 +28,7 @@ train_data = train_data.drop(columns=['Building Type', 'Day of Week', 'Number of
 
 # checking how many data points we have
 print('number of data points:', len(train_data))
+print()
 
 # is the data in a gaussian distribution?
 g = sns.displot(train_data['Square Footage'], kind='hist', kde=True)
@@ -51,7 +56,9 @@ plt.show()
 
 # is there a linear relationship between the variables?
 pearson_coef, _ = stats.pearsonr(train_data['Square Footage'], train_data['Energy Consumption'])
-print("Pearson Correlation Coefficient:", pearson_coef)
+print('****** CORRELATION ANALYSIS ******')
+print("Pearson Correlation Coefficient:", f"{pearson_coef:.3f}")
+print()
 
 # ******************************************************************************
 #                             FUNCTIONS USED
@@ -135,15 +142,20 @@ x_n = normalize_data(train_data['Square Footage'])
 y_n = normalize_data(train_data['Energy Consumption'])
 
 # apply linear regression function
-coef0, coef1, coef0_arr, coef1_arr, res, j = linear_regression(x_norm=x_n, y_norm=y_n, alpha=0.01, a_0=1, a_1=1)
+coef0, coef1, coef0_arr, coef1_arr, res, j = linear_regression(x_norm=x_n, y_norm=y_n, alpha=0.01, a_0=0.8, a_1=0.8)
 
 # de-normalize the coefficients
 coef0_denormalized, coef1_denormalized = denormalizer(x=train_data['Square Footage'], y=train_data['Energy Consumption'], coef_0 = coef0, coef_1=coef1)
 
-print('Coeficiente a_0:', coef0)
-print('Coeficiente a_1:', coef1)
-print('Coeficiente a_0 desnormalizado:', coef0_denormalized)
-print('Coeficiente a_1 desnormalizado:', coef1_denormalized)
+print('****** RESULTS ******')
+print('Coeficiente a_0:', f"{coef0:.3f}")
+print('Coeficiente a_1:', f"{coef1:.3f}")
+print()
+
+print('****** DENORMALIZED COEFFICIENTS ******')
+print('Coeficiente a_0 desnormalizado:', f"{coef0_denormalized:.3f}")
+print('Coeficiente a_1 desnormalizado:', f"{coef1_denormalized:.3f}")
+print()
 
 # check residuals for normality
 g = sns.displot(res, kind='hist', kde=True)
@@ -213,10 +225,90 @@ plt.savefig('plot_linear_regression.png')
 plt.show()
 
 # ******************************************************************************
+#                        FIT MODEL TO TEST DATA
+# ******************************************************************************
+print('****** PERFORM TEST ******')
+# import test data
+test_data = pd.read_csv('test_energy_data.csv')
+
+# remove columns that will not be used
+test_data = test_data.drop(columns=['Building Type', 'Day of Week', 'Number of Occupants', 'Average Temperature', 'Appliances Used'])
+
+# checking how many data points we have
+print('number of data points in test data:', len(test_data))
+print()
+
+# fit the model to the test data
+y_test = []
+for x in test_data['Square Footage']:
+  y_test.append(hipotesis(coef0_denormalized, coef1_denormalized, x))
+
+# plot the fit on the test data
+plt.scatter(test_data['Square Footage'], test_data['Energy Consumption'], s=5)
+plt.plot(test_data['Square Footage'], y_test, label='Regressão Linear', c='red')
+plt.xlabel('Área')
+plt.ylabel('Consumo de Energia')
+plt.title('Ajuste nos Dados de Teste')
+plt.tight_layout()
+plt.savefig('plot_linear_regression_test_data.png')
+plt.show()
+
+# evaluate model
+# R² (coefficient of determination)
+# R² is a measure of how well the model fits the data, and it ranges from 0 to 1. 
+# A value of 0 indicates that the model does not explain any of the variability in the data, while a value of 1 indicates that the model explains all of the variability in the data.
+# this coeficient has some limitations, as it can be affected by outliers or non-linear relationships between the variables.   
+ 
+def R_2(y_t, y_p):
+  y_mean = np.mean(y_t)
+  ss_residual = sum((y_t - y_p) ** 2)
+  ss_total = sum((y_t - y_mean) ** 2)
+  
+  r_squared = 1 - (ss_residual / ss_total)
+  return r_squared
+
+R_coef = R_2(test_data['Energy Consumption'], y_test)
+print('my R²:', f"{R_coef:.3f}")
+
+r2 = r2_score(test_data['Energy Consumption'], y_test)
+print('sklearn R²:', f"{r2:.3f}")
+print()
+
+# mean absolute error (MAE)
+
+# outliers dont impact as much in MAE
+def MAE(y_t, y_p):
+  mae = np.mean(np.abs(y_t - y_p))
+  return mae
+
+MAE = MAE(test_data['Energy Consumption'], y_test)
+print('my MAE:', f"{MAE:.3f}")
+
+MAE_sklearn = mean_absolute_error(test_data['Energy Consumption'], y_test)
+print('sklearn MAE:', f"{MAE_sklearn:.3f}")
+print()
+
+# RMSE (Root Mean Squared Error)
+def RMSE(y_t, y_p):
+  rmse = np.sqrt(np.mean((y_t - y_p) ** 2))
+  return rmse
+
+RMSE = RMSE(test_data['Energy Consumption'], y_test)
+print('my RMSE:', f"{RMSE:.3f}")
+
+RMSE_sklearn = root_mean_squared_error(test_data['Energy Consumption'], y_test)
+print('sklearn RMSE:', f"{RMSE_sklearn:.3f}")
+print()
+
+# ******************************************************************************
 #                    COMPARISON WITH SKLEARN LINEAR REGRESSION
 # ******************************************************************************
+print('****** PERFORM TEST WITH SKLEARN ******')
 X_train = train_data['Square Footage']
 y_train = train_data['Energy Consumption']
+
+X_test = test_data['Square Footage']
+y_test = test_data['Energy Consumption']
 
 # normalize data
 scaler = MinMaxScaler()
@@ -224,12 +316,34 @@ scaler = MinMaxScaler()
 X_train_scaled = scaler.fit_transform(X_train.values.reshape(-1, 1))
 y_train_scaled = scaler.fit_transform(y_train.values.reshape(-1, 1))
 
+X_test_scaled = scaler.transform(X_test.values.reshape(-1, 1))
+y_test_scaled = scaler.transform(y_test.values.reshape(-1, 1))
+# initiate the model 
 model = LinearRegression()
+
+# fit model to training data
 model.fit(X_train_scaled, y_train_scaled)
 
+# coeficients returned
 coef0_sklearn = model.intercept_[0]
 coef1_sklearn = model.coef_[0][0]
 
-print('Coeficiente a_0 sklearn:', coef0_sklearn)
-print('Coeficiente a_1 sklearn:', coef1_sklearn)
+print('Coeficiente a_0 sklearn:', f"{coef0_sklearn:.3f}")
+print('Coeficiente a_1 sklearn:', f"{coef1_sklearn:.3f}")
+print()
+
+# predict the values of y using the model
+y_predict = model.predict(X_test_scaled)
+
+#R²
+r2_sklearn = r2_score(y_test_scaled, y_predict)
+print('R² sklearn:', f"{r2_sklearn:.3f}")
+
+#MAE
+MAE_sklearn = mean_absolute_error(y_test_scaled, y_predict)
+print('MAE sklearn:', f"{MAE_sklearn:.3f}")
+
+#RMSE 
+RMSE_sklearn = root_mean_squared_error(y_test_scaled, y_predict)
+print('RMSE sklearn:', f"{RMSE_sklearn:.3f}")
 
